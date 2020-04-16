@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!-- XML Version -->
+<POSLauncher>
+	<AppSettings>
+		<Setting Property="LogFile" Value="C:\Positive\Log\POSLauncher.log"/>
+		<Setting Property="MaxLogSize" Value="119486"/>
+		<Setting Property="MaxLogAge" Value="11"/>
+		<Setting Property="UpdateXML" Value="StorePointUpdate.xml"/>
+		<Setting Property="Custodian" Value="C:\DAILY_MAINTENANCE\Custodian.exe"/>
+		<Setting Property="KillPOS32" Value="C:\Positive\Exe\KillPOS32.bat"/>
+		<Setting Property="UpgradePath" Value="\c$\office\upgrades"/>
+		<!-- Setting Property="UpgradeSRVOverRide" Value="FUELSRV"/ -->
+		<Setting Property="runafter" Value="20"/>
+		<Setting Property="runbefore" Value="6"/>
+		<Setting Property="RebootThreshold" Value="3"/>
+		<Setting Property="MaxUptime" Value="7"/>
+		<Setting Property="UptimeThreshold" Value="20"/>
+		<Setting Property="POSDBBuildFile" Value="PosDBBuild*.zip"/>
+		<Setting Property="POSDBBuildExe" Value="PosDBBuilder_MSSQL.exe"/>
+		<Setting Property="AutoEODWait" Value="10"/>
+	</AppSettings>
+	<POSStartup>
+		<Application Type="Service" Name="eSocket DB" ServiceName="MSSQLSERVER" delay="1"/>
+		<Application Type="Service" Name="POS DB" ServiceName="MSSQL$POSDB" delay="1"/>
+		<Application Type="Service" Name="LPE Client" ServiceName="RetalixPOSLPEComServer" delay="1"/>
+		<Application Type="Service" Name="eSocket.POS" ServiceName="EspRun" delay="1"/>
+		<Application Type="Service" Name="NCR Loader Service" ServiceName="NCRLoader" delay="1"/>
+		<Application Type="Application" Name="Ingenico RBA Connect" Path="c:\postilion\scripts\IngenicoRBA_Connect\IngenicoRBA_Connect.exe" delay="15"/>
+		<Application Type="Application" Name="StorePoint POS - Positive32.exe" Path="C:\Positive\Exe\Positive32.exe" delay="5"/>
+		<Application Type="Application" Name="TCP Communications Server (TCPComSrv2)" Path="C:\Positive\Services\TCPComSrv2.exe" delay="1"/>
+		<Application Type="Application" Name="POS Messenger Client (PMClient)" Path="C:\Bluecube\PMClient.exe" delay="1"/>
+	</POSStartup>
+	<MaintSettings>
+		<!-- Day Values: 7=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat -->
+			<!-- TCG -->
+			<Device Type="TCG01" RebootDay="1" AltRebootDay="2" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCG02" RebootDay="4" AltRebootDay="7" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCG03" RebootDay="5" AltRebootDay="1" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCG04" RebootDay="2" AltRebootDay="5" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<!-- TCD -->
+			<Device Type="TCD05" RebootDay="6" AltRebootDay="2" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCD06" RebootDay="7" AltRebootDay="1" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCD07" RebootDay="1" AltRebootDay="4" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<Device Type="TCD08" RebootDay="2" AltRebootDay="5" DeviceCatagory="TC" UPGradeSRV="SRV"/>
+			<!-- QSR Concept 1 -->
+			<Device Type="QSR09" RebootDay="1" AltRebootDay="5" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<Device Type="QSR10" RebootDay="3" AltRebootDay="6" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<Device Type="QSR13" RebootDay="4" AltRebootDay="7" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<Device Type="QSR14" RebootDay="2" AltRebootDay="5" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<Device Type="QSR25" RebootDay="2" AltRebootDay="5" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<!-- QSR Concept 2 -->
+			<Device Type="QSR11" RebootDay="4" AltRebootDay="7" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<Device Type="QSR12" RebootDay="1" AltRebootDay="4" DeviceCatagory="QSR" UPGradeSRV="SRV"/>
+			<!-- SHOP POS -->
+			<Device Type="SHP01" RebootDay="1" AltRebootDay="2" DeviceCatagory="SHP" UPGradeSRV="SHOPSRV"/>
+	</MaintSettings>
+	<MaintActions>
+		<!-- Action Types: -->
+		<!-- x run: Launches application and does not wait for completion -->
+		<!-- xx note: destination is left blank -->
+		<!-- x runwait: Launches application and waits for completion -->
+		<!-- xx note: destination is left blank  -->
+		<!-- x copy: Copy file from upgrade location to destination -->
+		<!-- xx note: use full file path and name for destination -->
+		<!-- x delete: deletes a file: Use full paths -->
+		<!-- xx note: destination is left blank  -->
+		<!-- X merge: imports registry key -->
+		<!-- xx note: destination is left blank - -->
+		<!-- x reboot: reboots the machine after 5 seconds -->
+		<!-- Additional Comments: Delays are preformed at the completion of the task-->
+	</MaintActions>
+</POSLauncher>
